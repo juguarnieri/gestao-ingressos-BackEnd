@@ -35,6 +35,18 @@ const createIngresso = async (req, res) => {
     }
 };
 
+const updateIngresso = async (req, res) => {
+    try {
+        const { evento, local, data_evento, categoria, preco, quantidade_disponivel } = req.body;
+        const updateIngresso = await ticketModel.updateIngresso(req.params.id, evento, local, data_evento, categoria, preco, quantidade_disponivel);
+        if (!updateIngresso) {
+            return res.status(404).json({ message: "Ingresso não encontrado." });
+        }
+        res.json(updateIngresso);
+    } catch (error) {
+        res.status(500).json({ message: "Erro ao atualizar um ingresso." });
+    }
+};
 
 
 module.exports = { getAllIngressos, getIngresso, createIngresso, updateIngresso, deleteIngresso };
