@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const userController = require("../controllers/userController");
+const ticketController = require("../controllers/ticketController");
 
-router.get("/tickets", userController.getAllIngressos);
-router.get("/tickets/:id", userController.getIngresso);
-router.post("/tickets", userController.createIngresso);
-router.put("/tickets/:id", userController.updateIngresso);
-router.delete("/tickets/:id", userController.deleteIngresso);
-
+router.get("/tickets", ticketController.getAllIngressos);
+router.get("/tickets/:id", ticketController.getIngresso);
+router.post("/tickets", ticketController.createIngresso);
+router.put("/tickets/:id", ticketController.updateIngresso);
+router.delete("/tickets/:id", ticketController.deleteIngresso);
+router.post("/venda/:id", ticketController.vendaIngresso);
 module.exports = router;
