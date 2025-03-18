@@ -36,6 +36,7 @@ const createIngresso = async (req, res) => {
 };
 
 
+
 module.exports = { getAllIngressos, getIngresso, createIngresso, updateIngresso, deleteIngresso };
 
 
