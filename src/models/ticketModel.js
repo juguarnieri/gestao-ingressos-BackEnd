@@ -11,12 +11,28 @@ const getIngressoById = async (id) => {
 };
 
 const createIngresso = async (evento, local, data_evento, categoria, preco, quantidade_disponivel) => {
+    if (quantidade_disponivel <= 0) {
+        throw new Error("Ingressos esgotados.");
+    }
+
+    if (categoria === "Pista" && preco < 100) {
+        throw new Error("O preço mínimo para Pista é R$100,00");
+    } else if (categoria === "Pista VIP" && preco < 200) {
+        throw new Error("O preço mínimo para Pista VIP é R$200,00");
+    } else if (categoria === "Camarote" && preco < 300) {
+        throw new Error("O preço mínimo para Camarote é R$300,00");
+    } else if (categoria === "Arquibancada" && preco < 80) {
+        throw new Error("O preço mínimo para Arquibancada é R$80,00");
+    }
+
     const result = await pool.query(
         "INSERT INTO ingressos (evento, local, data_evento, categoria, preco, quantidade_disponivel) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
         [evento, local, data_evento, categoria, preco, quantidade_disponivel]
     );
+
     return result.rows[0];
 };
+
 
 const updateIngresso = async (id, evento, local, data_evento, categoria, preco, quantidade_disponivel) => {
     const result = await pool.query(
