@@ -48,6 +48,14 @@ const updateIngresso = async (req, res) => {
     }
 };
 
+const deleteIngresso = async (req, res) => {
+    try {
+        const message = await ticketModel.deleteIngresso(req.params.id);
+        res.json(message);
+    } catch (error) {
+        res.status(500).json({ message: "Erro ao deletar um ingresso." });
+    }
+};
 
 module.exports = { getAllIngressos, getIngresso, createIngresso, updateIngresso, deleteIngresso };
 

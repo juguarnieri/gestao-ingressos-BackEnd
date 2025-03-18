@@ -26,4 +26,14 @@ const updateIngresso = async (id, evento, local, data_evento, categoria, preco, 
     return result.rows[0];
 };
 
+const deleteIngresso = async (id) => {
+    const result = await pool.query("DELETE FROM ingressos WHERE id = $1 RETURNING *", [id]);
+
+    if (result.rowCount === 0) {
+        return { error: "Ingresso não encontrado." };
+    }
+
+    return { message: "Ingresso excluído." };
+};
+
 module.exports = { getIngressos, getIngressoById, createIngresso, updateIngresso, deleteIngresso };
