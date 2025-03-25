@@ -75,7 +75,7 @@ Isso impede que arquivos sensíveis sejam enviados ao repositório.
 ## 📥 Clonando o Repositório
 Se deseja clonar este projeto do GitHub, execute:
 ```sh
-git clone https://github.com/seu-usuario/ingressos-api.git
+https://github.com/juguarnieri/gestao-ingressos-BackEnd.git
 cd ingressos-api
 npm install
 ```
@@ -126,12 +126,12 @@ A API estará rodando em: [http://localhost:3000](http://localhost:3000)
 **POST** `/ingressos`
 ```json
 {
-  "evento": "Show do Coldplay",
-  "local": "Estádio Maracanã",
-  "data_evento": "2025-07-15",
-  "categoria": "Pista",
-  "preco": 150.00,
-  "quantidade_disponivel": 50
+       "evento": "Show sertanejo- Ana Castela",
+        "local": "Valinhos, SÆo Paulo",
+        "data_evento": "2025-09-10T03:00:00.000Z",
+        "categoria": "Pista",
+        "preco": "100.00",
+        "quantidade_disponivel": 700
 }
 ```
 
@@ -143,10 +143,15 @@ A API estará rodando em: [http://localhost:3000](http://localhost:3000)
 
 ### 📌 Atualizar um ingresso
 **PUT** `/ingressos/:id`
+Body-raw
 ```json
 {
-  "preco": 180.00,
-  "quantidade_disponivel": 30
+    "evento": "Show sertanejo- Ana Castela",
+    "local": "Valinhos, SÆo Paulo",
+    "data_evento": "2025-09-10T03:00:00.000Z",
+    "categoria": "Pista",
+    "preco": "100.00",
+    "quantidade_disponivel": 160
 }
 ```
 
@@ -157,8 +162,9 @@ A API estará rodando em: [http://localhost:3000](http://localhost:3000)
 **POST** `/venda`
 ```json
 {
-  "id": 5,
-  "quantidade": 2
+  "id": 1,
+  "quantidade": 18,
+  "preco":100
 }
 ```
 
@@ -172,11 +178,13 @@ Fluxo esperado:
 ### 📌 Resposta de Sucesso (HTTP 200)
 ```json
 {
-  "mensagem": "Compra realizada com sucesso!",
-  "evento": "Show do Coldplay",
-  "categoria": "Pista VIP",
-  "quantidade_comprada": 2,
-  "quantidade_restante": 10
+    "mensagem": "Compra realizada com sucesso!",
+    "evento": "Show sertanejo- Ana Castela",
+    "categoria": "Pista",
+    "preco_unitario": "100.00",
+    "quantidade_comprada": 18,
+    "preco_total": "1800.00",
+    "quantidade_restante": 464
 }
 ```
 
