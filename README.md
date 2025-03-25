@@ -113,17 +113,107 @@ INSERT INTO ingressos (evento, local, data_evento, categoria, preco, quantidade_
 npm run dev
 ```
 
-### 2️⃣ Modo Produção
-```sh
-npm start
-```
-
 A API estará rodando em: [http://localhost:3000](http://localhost:3000)
 
 ## 🛣️ Passo 6: Endpoints da API
 
+### 📌 Listar todos os ingressos disponíveis
+**GET** `/ingressos`
+```
+http://localhost:3000/api/ingressos
+```
+**Body**
+```
+[
+    {
+        "id": 1,
+        "evento": "Show sertanejo- Ana Castela",
+        "local": "Valinhos, SÆo Paulo",
+        "data_evento": "2025-09-10T03:00:00.000Z",
+        "categoria": "Pista",
+        "preco": "100.00",
+        "quantidade_disponivel": 500
+    },
+    {
+        "id": 2,
+        "evento": "Show sertanejo- Ana Castela",
+        "local": "Valinhos, SÆo Paulo",
+        "data_evento": "2025-09-10T03:00:00.000Z",
+        "categoria": "Pista VIP",
+        "preco": "200.00",
+        "quantidade_disponivel": 300
+    },
+    {
+        "id": 3,
+        "evento": "Show sertanejo- Ana Castela",
+        "local": "Valinhos, SÆo Paulo",
+        "data_evento": "2025-09-10T03:00:00.000Z",
+        "categoria": "Camarote",
+        "preco": "300.00",
+        "quantidade_disponivel": 200
+    },
+    {
+        "id": 4,
+        "evento": "Show sertanejo- Ana Castela",
+        "local": "Valinhos, SÆo Paulo",
+        "data_evento": "2025-09-10T03:00:00.000Z",
+        "categoria": "Arquibancada",
+        "preco": "80.00",
+        "quantidade_disponivel": 800
+    }
+]
+```
+
+### 📌 Consultar um ingresso específico
+**GET** `/ingressos/:id`
+```
+http://localhost:3000/api/ingressos/1
+```
+**Body**
+```
+{
+    "id": 1,
+    "evento": "Show sertanejo- Ana Castela",
+    "local": "Valinhos, SÆo Paulo",
+    "data_evento": "2025-09-10T03:00:00.000Z",
+    "categoria": "Pista",
+    "preco": "100.00",
+    "quantidade_disponivel": 500
+}
+```
+
+### 📌 Realizar a venda de um ingresso
+**POST** `/venda`
+```
+http://localhost:3000/api/venda
+```
+**Requisição**
+```json
+{
+  "id": 1,
+  "quantidade": 18,
+  "preco":100
+}
+```
+**Body**
+```
+{
+    "mensagem": "Compra realizada com sucesso!",
+    "evento": "Show sertanejo- Ana Castela",
+    "categoria": "Pista",
+    "preco_unitario": "100.00",
+    "quantidade_comprada": 18,
+    "preco_total": "1800.00",
+    "quantidade_restante": 464
+}
+```
+
 ### 📌 Criar um novo ingresso
 **POST** `/ingressos`
+```
+http://localhost:3000/api/ingressos
+```
+**Requisição**
 ```json
 {
        "evento": "Show sertanejo- Ana Castela",
@@ -134,18 +224,39 @@ A API estará rodando em: [http://localhost:3000](http://localhost:3000)
         "quantidade_disponivel": 700
 }
 ```
-
-### 📌 Listar todos os ingressos disponíveis
-**GET** `/ingressos`
-
-### 📌 Consultar um ingresso específico
-**GET** `/ingressos/:id`
+**Body**
+```
+{
+    "id": 6,
+    "evento": "Show sertanejo- Ana Castela",
+    "local": "Valinhos, SÆo Paulo",
+    "data_evento": "2025-09-10T03:00:00.000Z",
+    "categoria": "Pista",
+    "preco": "100.00",
+    "quantidade_disponivel": 700
+}
+```
 
 ### 📌 Atualizar um ingresso
 **PUT** `/ingressos/:id`
-Body-raw
-```json
+```
+http://localhost:3000/api/ingressos/1
+```
+**Requisição**
+```
 {
+    "evento": "Show sertanejo- Ana Castela",
+    "local": "Valinhos, SÆo Paulo",
+    "data_evento": "2025-09-10T03:00:00.000Z",
+    "categoria": "Pista",
+    "preco": "100.00",
+    "quantidade_disponivel": 160
+}
+```
+**Body**
+```
+{
+    "id": 1,
     "evento": "Show sertanejo- Ana Castela",
     "local": "Valinhos, SÆo Paulo",
     "data_evento": "2025-09-10T03:00:00.000Z",
@@ -157,23 +268,23 @@ Body-raw
 
 ### 📌 Remover um ingresso
 **DELETE** `/ingressos/:id`
-
-### 📌 Realizar a venda de um ingresso
-**POST** `/venda`
-```json
+```
+http://localhost:3000/api/ingressos/5
+```
+**Body**
+```
 {
-  "id": 1,
-  "quantidade": 18,
-  "preco":100
+    "message": "Ingresso excluído."
 }
 ```
 
-Fluxo esperado:
+
+### Fluxo esperado:
 1. Buscar o ingresso pelo `id`.
 2. Verificar se há ingressos disponíveis suficientes.
 3. Se houver, subtrair a quantidade vendida de `quantidade_disponivel`.
 4. Se `quantidade_disponivel` chegar a 0, impedir novas vendas.
-5. Retornar uma mensagem de sucesso com os detalhes da compra.
+5. Retornar uma mensagem de sucesso com os detalhes da compra. 
 
 ### 📌 Resposta de Sucesso (HTTP 200)
 ```json
